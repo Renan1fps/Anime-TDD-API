@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/Renan1fps/Anime-TDD-API.git",
   "author": "MbRenan <renan.nunes@mblabs.com.br>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1"
+  }
 }
