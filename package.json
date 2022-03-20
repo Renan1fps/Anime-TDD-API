@@ -1,0 +1,8 @@
+{
+  "name": "Anime-TDD-API",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Renan1fps/Anime-TDD-API.git",
+  "author": "MbRenan <renan.nunes@mblabs.com.br>",
+  "license": "MIT"
+}
