@@ -19,6 +19,19 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error("missing param name"))
+    expect(httpResponse.body).toEqual(new Error("missing param: name"))
+  })
+
+  test('Should return 400 if no description is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        price: 0.00,
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new Error("missing param: description"))
   })
 })
