@@ -34,4 +34,17 @@ describe('CreateAnime Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new Error("missing param: description"))
   })
+
+  test('Should return 400 if no price is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new Error("missing param: price"))
+  })
 })
