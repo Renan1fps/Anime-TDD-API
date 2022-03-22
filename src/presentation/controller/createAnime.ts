@@ -1,26 +1,14 @@
 export class CreateAnimeController {
   handle(httpRequest: any): any {
 
-    if(!httpRequest.body.name){
-      return {
-        statusCode: 400,
-        body: new Error("missing param: name")
+    const requiredFields = ["name", "description", "price"]
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return {
+          statusCode: 400,
+          body: new Error(`missing param: ${field}`)
+        }
       }
     }
-
-    if(!httpRequest.body.description){
-      return {
-        statusCode: 400,
-        body: new Error("missing param: description")
-      }
-    }
-
-    if(!httpRequest.body.price){
-      return {
-        statusCode: 400,
-        body: new Error("missing param: price")
-      }
-    }
- 
   }
 }
