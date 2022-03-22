@@ -14,6 +14,13 @@ export class CreateAnimeController {
         body: new Error("missing param: description")
       }
     }
+
+    if(!httpRequest.body.price){
+      return {
+        statusCode: 400,
+        body: new Error("missing param: price")
+      }
+    }
  
   }
 }
