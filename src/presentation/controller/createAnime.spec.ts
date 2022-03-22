@@ -13,7 +13,6 @@ describe('CreateAnime Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: "any_name",
         description: "any_description",
         price: 0.00,
       }
