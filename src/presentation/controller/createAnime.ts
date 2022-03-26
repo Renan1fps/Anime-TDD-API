@@ -1,6 +1,7 @@
 import { badRequest } from '../helpers/httpHelper'
+import { IHttpRequest, IHttpResponse } from './protocols/http'
 export class CreateAnimeController {
-  handle(httpRequest: any): any {
+  handle(httpRequest: IHttpRequest): IHttpResponse {
 
     const requiredFields = ["name", "description", "price"]
     for (const field of requiredFields) {
