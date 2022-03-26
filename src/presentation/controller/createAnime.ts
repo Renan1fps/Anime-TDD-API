@@ -1,6 +1,6 @@
+import { IDateValidator, IHttpRequest, IHttpResponse } from './protocols'
 import { badRequest } from '../helpers/httpHelper'
-import { IDateValidator } from './protocols/date-validator'
-import { IHttpRequest, IHttpResponse } from './protocols/http'
+
 export class CreateAnimeController {
 
   constructor(private readonly dateValidator: IDateValidator){}
