@@ -1,3 +1,4 @@
+import { InvalidParam } from '../errors/invalid-param'
 import { MissingParamError } from '../errors/missing-param-error'
 import { CreateAnimeController } from './createAnime'
 import { IDateValidator } from './protocols/date-validator'
@@ -89,6 +90,6 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('invalid date'))
+    expect(httpResponse.body).toEqual(new InvalidParam('date'))
   })
 })

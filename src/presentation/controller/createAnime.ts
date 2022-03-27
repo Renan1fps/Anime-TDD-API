@@ -1,6 +1,7 @@
 import { IDateValidator, IHttpRequest, IHttpResponse } from './protocols'
 import { badRequest } from '../helpers/httpHelper'
 import { MissingParamError } from '../errors/missing-param-error'
+import { InvalidParam } from '../errors/invalid-param'
 
 export class CreateAnimeController {
 
@@ -16,10 +17,7 @@ export class CreateAnimeController {
     }
      const isValidDate = this.dateValidator.isValid(httpRequest.body.date)
      if(!isValidDate){
-       return {
-         statusCode: 400,
-         body: new Error('invalid date')
-       }
+       return badRequest(new InvalidParam('date'))
      }
   }
 }
