@@ -141,7 +141,11 @@ describe('CreateAnime Controller', () => {
         date: dateMock
       }
     }
+<<<<<<< HEAD
     sut.handle(httpRequest)
+=======
+    const httpResponse = sut.handle(httpRequest)
+>>>>>>> 3fa4f4d2ca7655c58e381f398a424b28c2c47805
     expect(isValidSpy).toHaveBeenCalledWith(dateMock)
   })
 })
