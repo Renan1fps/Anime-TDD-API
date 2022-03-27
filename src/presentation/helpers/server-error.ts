@@ -1,6 +1,7 @@
 import { IHttpResponse } from "../controller/protocols";
+import { ServerError } from "../errors";
 
 export const serverError = (): IHttpResponse => ({
   statusCode: 500,
-  body: new Error('internal server error')
+  body: new ServerError()
 })

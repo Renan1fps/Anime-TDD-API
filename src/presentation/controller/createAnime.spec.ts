@@ -1,4 +1,5 @@
 import { InvalidParam, MissingParamError } from '../errors'
+import { ServerError } from '../errors/server-error'
 import { CreateAnimeController } from './createAnime'
 import { IDateValidator } from './protocols/date-validator'
 
@@ -107,7 +108,7 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new Error('internal server error'))
+    expect(httpResponse.body).toEqual(new ServerError())
   })
 
   test('Should call error corrector if dateValidator throws', () => {
@@ -125,6 +126,6 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toBeInstanceOf(Error)
+    expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
 })
