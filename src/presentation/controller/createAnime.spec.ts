@@ -5,6 +5,11 @@ import { IDateValidator } from './protocols/date-validator'
 
 describe('CreateAnime Controller', () => {
 
+  interface ISutTypes{
+    sut: CreateAnimeController
+    dateValidatorStub: IDateValidator
+  }
+
   const makeDateValidator = (): IDateValidator => {
     class DateValidatorStub implements IDateValidator {
       isValid(date: Date): boolean {
@@ -15,7 +20,7 @@ describe('CreateAnime Controller', () => {
     return new DateValidatorStub()
   }
 
-  const makeSut = () => {
+  const makeSut = (): ISutTypes => {
     const dateValidatorStub = makeDateValidator()
     const sut = new CreateAnimeController(dateValidatorStub)
     return {
