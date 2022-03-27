@@ -91,4 +91,22 @@ describe('CreateAnime Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new InvalidParam('date'))
   })
+
+  test('Should 500 if dateValidator throws', () => {
+    const { sut, dateValidatorStub  } = makeSut()
+    jest.spyOn(dateValidatorStub, 'isValid').mockImplementationOnce(()=>{
+      throw new Error()
+    })
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+        price: 1,
+        date: new Date()
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new Error('internal server error'))
+  })
 })
