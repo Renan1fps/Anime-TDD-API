@@ -1,5 +1,4 @@
-import { InvalidParam } from '../errors/invalid-param'
-import { MissingParamError } from '../errors/missing-param-error'
+import { InvalidParam, MissingParamError } from '../errors'
 import { CreateAnimeController } from './createAnime'
 import { IDateValidator } from './protocols/date-validator'
 

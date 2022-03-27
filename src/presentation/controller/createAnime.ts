@@ -1,8 +1,6 @@
 import { IDateValidator, IHttpRequest, IHttpResponse } from './protocols'
 import { badRequest } from '../helpers/httpHelper'
-import { MissingParamError } from '../errors/missing-param-error'
-import { InvalidParam } from '../errors/invalid-param'
-
+import { InvalidParam, MissingParamError } from '../errors'
 export class CreateAnimeController {
 
   constructor(private readonly dateValidator: IDateValidator){}
