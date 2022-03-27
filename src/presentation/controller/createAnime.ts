@@ -1,6 +1,5 @@
 import { IDateValidator, IHttpRequest, IHttpResponse, Controller } from './protocols'
-import { badRequest } from '../helpers/httpHelper'
-import { serverError } from '../helpers/server-error'
+import { badRequest, serverError } from '../helpers'
 import { InvalidParam, MissingParamError } from '../errors'
 export class CreateAnimeController implements Controller {
 
