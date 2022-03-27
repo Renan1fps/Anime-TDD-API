@@ -1,3 +1,4 @@
+import { MissingParamError } from '../errors/missing-param-error'
 import { CreateAnimeController } from './createAnime'
 import { IDateValidator } from './protocols/date-validator'
 
@@ -32,7 +33,7 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error("missing param: name"))
+    expect(httpResponse.body).toEqual(new MissingParamError('name'))
   })
 
   test('Should return 400 if no description is provided', () => {
@@ -45,7 +46,7 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error("missing param: description"))
+    expect(httpResponse.body).toEqual(new MissingParamError('description'))
   })
 
   test('Should return 400 if no price is provided', () => {
@@ -58,7 +59,7 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error("missing param: price"))
+    expect(httpResponse.body).toEqual(new MissingParamError('price'))
   })
 
   test('Should return 400 if no date is provided', () => {
@@ -72,7 +73,7 @@ describe('CreateAnime Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('missing param: date'))
+    expect(httpResponse.body).toEqual(new MissingParamError('date'))
   })
 
   test('Should return 400 if an invalid date is provided', () => {

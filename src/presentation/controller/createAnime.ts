@@ -1,5 +1,6 @@
 import { IDateValidator, IHttpRequest, IHttpResponse } from './protocols'
 import { badRequest } from '../helpers/httpHelper'
+import { MissingParamError } from '../errors/missing-param-error'
 
 export class CreateAnimeController {
 
@@ -10,7 +11,7 @@ export class CreateAnimeController {
     const requiredFields = ["name", "description", "price", "date"]
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
-        return badRequest(new Error(`missing param: ${field}`))
+        return badRequest(new MissingParamError(field))
       }
     }
      const isValidDate = this.dateValidator.isValid(httpRequest.body.date)
