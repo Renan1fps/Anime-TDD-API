@@ -128,4 +128,20 @@ describe('CreateAnime Controller', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
+
+  test('Should call dateValidator with correct date', () => {
+    const { sut, dateValidatorStub } = makeSut()
+    const isValidSpy = jest.spyOn(dateValidatorStub, 'isValid')
+    const dateMock = new Date()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+        price: 1,
+        date: dateMock
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith(dateMock)
+  })
 })
