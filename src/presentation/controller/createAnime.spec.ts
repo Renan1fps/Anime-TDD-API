@@ -6,12 +6,12 @@ import { IDateValidator } from './protocols/date-validator'
 describe('CreateAnime Controller', () => {
 
   const makeDateValidator = (): IDateValidator => {
-    class DateValidatorStub implements IDateValidator{
+    class DateValidatorStub implements IDateValidator {
       isValid(date: Date): boolean {
         return true
       }
     }
-    
+
     return new DateValidatorStub()
   }
 
@@ -78,7 +78,7 @@ describe('CreateAnime Controller', () => {
   })
 
   test('Should return 400 if an invalid date is provided', () => {
-    const { sut, dateValidatorStub  } = makeSut()
+    const { sut, dateValidatorStub } = makeSut()
     jest.spyOn(dateValidatorStub, 'isValid').mockReturnValueOnce(false)
     const httpRequest = {
       body: {
@@ -94,8 +94,8 @@ describe('CreateAnime Controller', () => {
   })
 
   test('Should 500 if dateValidator throws', () => {
-    const { sut, dateValidatorStub  } = makeSut()
-    jest.spyOn(dateValidatorStub, 'isValid').mockImplementationOnce(()=>{
+    const { sut, dateValidatorStub } = makeSut()
+    jest.spyOn(dateValidatorStub, 'isValid').mockImplementationOnce(() => {
       throw new Error()
     })
     const httpRequest = {
@@ -112,8 +112,8 @@ describe('CreateAnime Controller', () => {
   })
 
   test('Should call error corrector if dateValidator throws', () => {
-    const { sut, dateValidatorStub  } = makeSut()
-    jest.spyOn(dateValidatorStub, 'isValid').mockImplementationOnce(()=>{
+    const { sut, dateValidatorStub } = makeSut()
+    jest.spyOn(dateValidatorStub, 'isValid').mockImplementationOnce(() => {
       throw new Error()
     })
     const httpRequest = {
