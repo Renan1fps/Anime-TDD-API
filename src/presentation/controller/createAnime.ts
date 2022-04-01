@@ -14,7 +14,8 @@ export class CreateAnimeController implements Controller {
           return badRequest(new MissingParamError(field))
         }
       }
-      const isValidDate = this.dateValidator.isValid(httpRequest.body.date)
+      const { date } = httpRequest.body
+      const isValidDate = this.dateValidator.isValid(date)
       if (!isValidDate) {
         return badRequest(new InvalidParam('date'))
       }
