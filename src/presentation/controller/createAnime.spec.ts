@@ -1,3 +1,5 @@
+import { IAnimeModel } from '../../domain/models/anime'
+import { IAddAnime, IAddAnimeModel } from '../../domain/usecases/add-anime'
 import { InvalidParam, MissingParamError } from '../errors'
 import { ServerError } from '../errors/server-error'
 import { CreateAnimeController } from './createAnime'
@@ -5,9 +7,10 @@ import { IDateValidator } from './protocols/date-validator'
 
 describe('CreateAnime Controller', () => {
 
-  interface ISutTypes{
+  interface ISutTypes {
     sut: CreateAnimeController
     dateValidatorStub: IDateValidator
+    addAnimeStub: IAddAnime,
   }
 
   const makeDateValidator = (): IDateValidator => {
@@ -20,12 +23,32 @@ describe('CreateAnime Controller', () => {
     return new DateValidatorStub()
   }
 
+  const makeAddAnime = (): IAddAnime => {
+    class AddAnimeStub implements IAddAnime {
+      add(anime: IAddAnimeModel): IAnimeModel{
+        const fakeAnime = {
+          id: 'valid_id',
+          name: 'valid_name',
+          price: 1,
+          description: 'valid_description',
+          date: new Date(),
+          createdAt: new Date(),
+        }
+        return fakeAnime
+      }
+    }
+
+    return new AddAnimeStub()
+  }
+
   const makeSut = (): ISutTypes => {
     const dateValidatorStub = makeDateValidator()
-    const sut = new CreateAnimeController(dateValidatorStub)
+    const addAnimeStub = makeAddAnime()
+    const sut = new CreateAnimeController(dateValidatorStub, addAnimeStub)
     return {
       sut,
-      dateValidatorStub
+      dateValidatorStub,
+      addAnimeStub
     }
   }
 
@@ -148,5 +171,21 @@ describe('CreateAnime Controller', () => {
     }
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith(dateMock)
+  })
+
+  test('Should call addAnime with correct values', () => {
+    const { sut, addAnimeStub } = makeSut()
+    const addSpy = jest.spyOn(addAnimeStub, 'add')
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+        price: 1,
+        date: new Date()
+      }
+    }
+    sut.handle(httpRequest)
+    expect(addSpy).toHaveBeenCalledWith({ ...httpRequest.body })
   })
 })
