@@ -20,7 +20,11 @@ export class CreateAnimeController implements Controller {
         return badRequest(new InvalidParam('date'))
       }
 
-      this.addAnime.add(httpRequest.body)
+      const anime = this.addAnime.add(httpRequest.body)
+      return {
+        statusCode: 200,
+        body: anime
+      }
     } catch (error) {
       return serverError()
     }
