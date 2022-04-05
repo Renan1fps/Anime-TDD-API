@@ -25,7 +25,7 @@ describe('CreateAnime Controller', () => {
 
   const makeAddAnime = (): IAddAnime => {
     class AddAnimeStub implements IAddAnime {
-      add(anime: IAddAnimeModel): IAnimeModel{
+      add(anime: IAddAnimeModel): IAnimeModel {
         const fakeAnime = {
           id: 'valid_id',
           name: 'valid_name',
@@ -187,5 +187,24 @@ describe('CreateAnime Controller', () => {
     }
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({ ...httpRequest.body })
+  })
+
+  test('Should return 500 if addAnime throws', () => {
+    const { sut, addAnimeStub } = makeSut()
+    jest.spyOn(addAnimeStub, 'add').mockImplementationOnce(() => {
+      throw Error()
+    })
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+        price: 1,
+        date: new Date()
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
   })
 })
