@@ -1,5 +1,5 @@
 import { IDateValidator, IHttpRequest, IHttpResponse, Controller } from './protocols'
-import { badRequest, serverError } from '../helpers'
+import { badRequest, serverError, success } from '../helpers'
 import { InvalidParam, MissingParamError } from '../errors'
 import { IAddAnime } from '../../domain/usecases/add-anime'
 export class CreateAnimeController implements Controller {
@@ -21,10 +21,7 @@ export class CreateAnimeController implements Controller {
       }
 
       const anime = this.addAnime.add(httpRequest.body)
-      return {
-        statusCode: 200,
-        body: anime
-      }
+      return success(anime)
     } catch (error) {
       return serverError()
     }
