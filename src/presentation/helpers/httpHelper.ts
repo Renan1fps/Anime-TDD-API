@@ -1,4 +1,4 @@
-import { IHttpResponse } from "../controller/protocols"
+import { IHttpResponse } from "../protocols"
 import { ServerError } from "../errors"
 
 

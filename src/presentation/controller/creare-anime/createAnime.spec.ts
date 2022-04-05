@@ -1,9 +1,6 @@
-import { IAnimeModel } from '../../domain/models/anime'
-import { IAddAnime, IAddAnimeModel } from '../../domain/usecases/add-anime'
-import { InvalidParam, MissingParamError } from '../errors'
-import { ServerError } from '../errors/server-error'
+import { IAnimeModel, IAddAnime, IAddAnimeModel, IDateValidator } from './create-anime-protocols'
+import { InvalidParam, MissingParamError, ServerError } from '../../errors'
 import { CreateAnimeController } from './createAnime'
-import { IDateValidator } from './protocols/date-validator'
 
 const createdAt = new Date()
 const date = new Date()

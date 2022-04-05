@@ -1,7 +1,7 @@
-import { IDateValidator, IHttpRequest, IHttpResponse, Controller } from './protocols'
-import { badRequest, serverError, success } from '../helpers'
-import { InvalidParam, MissingParamError } from '../errors'
-import { IAddAnime } from '../../domain/usecases/add-anime'
+import { IDateValidator, IHttpRequest, IHttpResponse, IAddAnime , Controller } from './create-anime-protocols'
+import { badRequest, serverError, success } from '../../helpers'
+import { InvalidParam, MissingParamError } from '../../errors'
+
 export class CreateAnimeController implements Controller {
 
   constructor(private readonly dateValidator: IDateValidator, private readonly addAnime: IAddAnime) { }
