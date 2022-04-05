@@ -5,6 +5,9 @@ import { ServerError } from '../errors/server-error'
 import { CreateAnimeController } from './createAnime'
 import { IDateValidator } from './protocols/date-validator'
 
+const createdAt = new Date()
+const date = new Date()
+
 describe('CreateAnime Controller', () => {
 
   interface ISutTypes {
@@ -31,8 +34,8 @@ describe('CreateAnime Controller', () => {
           name: 'valid_name',
           price: 1,
           description: 'valid_description',
-          date: new Date(),
-          createdAt: new Date(),
+          date,
+          createdAt,
         }
         return fakeAnime
       }
@@ -113,7 +116,7 @@ describe('CreateAnime Controller', () => {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: new Date()
+        date
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -131,7 +134,7 @@ describe('CreateAnime Controller', () => {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: new Date()
+        date
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -149,7 +152,7 @@ describe('CreateAnime Controller', () => {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: new Date()
+        date
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -160,17 +163,16 @@ describe('CreateAnime Controller', () => {
   test('Should call dateValidator with correct date', () => {
     const { sut, dateValidatorStub } = makeSut()
     const isValidSpy = jest.spyOn(dateValidatorStub, 'isValid')
-    const dateMock = new Date()
     const httpRequest = {
       body: {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: dateMock
+        date
       }
     }
     sut.handle(httpRequest)
-    expect(isValidSpy).toHaveBeenCalledWith(dateMock)
+    expect(isValidSpy).toHaveBeenCalledWith(date)
   })
 
   test('Should call addAnime with correct values', () => {
@@ -182,7 +184,7 @@ describe('CreateAnime Controller', () => {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: new Date()
+        date
       }
     }
     sut.handle(httpRequest)
@@ -200,11 +202,34 @@ describe('CreateAnime Controller', () => {
         name: 'any_name',
         description: 'any_description',
         price: 1,
-        date: new Date()
+        date
       }
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 200 if valid data is provided', () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description',
+        price: 1,
+        date
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      price: 1,
+      description: 'valid_description',
+      date,
+      createdAt,
+    })
   })
 })
