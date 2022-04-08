@@ -23,4 +23,11 @@ describe('DateValidator', () => {
     const isValid = sut.isValid(date)
     expect(isValid).toBe(true)
   })
+
+  test('Should call isValid with correct date', ()=>{
+    const sut = new DateValidator()
+    const isValidSpy = jest.spyOn(sut, 'isValid')
+    sut.isValid(date)
+    expect(isValidSpy).toHaveBeenCalledWith(date)
+  })
 })
