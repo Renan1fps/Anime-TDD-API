@@ -29,7 +29,7 @@ const makeSut = (): ISutTypes => {
 }
 
 describe('DbAddAnime Usecase', () => {
-  test('Should call parse with correct date', async () => {
+  test('Should call parseDate with correct date', async () => {
     const { sut, parseStub } = makeSut()
     const isValidSpy = jest.spyOn(parseStub, 'parse')
     const anime = {
@@ -40,5 +40,20 @@ describe('DbAddAnime Usecase', () => {
     }
     await sut.add(anime)
     expect(isValidSpy).toHaveBeenCalledWith(validDate)
+  })
+
+  test('Should throw if parseDate throws', async () => {
+    const { sut, parseStub } = makeSut()
+    jest.spyOn(parseStub, 'parse').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const anime = {
+      name: 'valid_name',
+      description: 'valid_description',
+      price: 1,
+      date: validDate,
+    }
+    const reject = sut.add(anime)
+    await expect(reject).rejects.toThrow()
   })
 })
