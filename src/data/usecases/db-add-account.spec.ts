@@ -2,6 +2,7 @@ import { ParseDate } from "../protocols/parse-date";
 import { DbAddAnime } from "./db-add-account"
 
 const validDate = new Date()
+const validDatestring = validDate.toString();
 
 const makeParse = (): ParseDate => {
   class ParseStub implements ParseDate {
@@ -56,4 +57,24 @@ describe('DbAddAnime Usecase', () => {
     const reject = sut.add(anime)
     await expect(reject).rejects.toThrow()
   })
+
+  test('Should return parseDate with correct date', async () => {
+    const { sut, parseStub } = makeSut()
+    jest.spyOn(parseStub, 'parse').mockImplementationOnce(() => {
+      return validDatestring;
+    })
+
+    const isValidSpy = jest.spyOn(parseStub, 'parse')
+
+    const anime = {
+      name: 'valid_name',
+      description: 'valid_description',
+      price: 1,
+      date: validDate,
+    }
+    await sut.add(anime);
+    expect(isValidSpy).toReturn()
+    expect(isValidSpy).toReturnWith(validDatestring)
+  })
+
 })
