@@ -65,7 +65,6 @@ describe('DbAddAnime Usecase', () => {
     })
 
     const isValidSpy = jest.spyOn(parseStub, 'parse')
-
     const anime = {
       name: 'valid_name',
       description: 'valid_description',
